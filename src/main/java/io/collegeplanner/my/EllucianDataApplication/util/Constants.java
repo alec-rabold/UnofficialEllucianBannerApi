@@ -8,10 +8,11 @@ import java.util.Set;
 
 public class Constants {
 
-    /** View */
-    public static final String JSP_VIEW_RESOLVER_PREFIX = "/WEB-INF/classes/templates/";
-    public static final String JSP_VIEW_RESOLVER_SUFFIX = ".jsp";
-
+    /** API Paths */
+    public static final String API_PATH_TERMS = "/v1/terms";
+    public static final String API_PATH_SUBJECTS = "/v1/subjects";
+    public static final String API_PATH_COURSES = "/v1/courses";
+    public static final String API_PATH_SECTIONS = "/v1/sections";
 
     /** Supported colleges */
     public static final String UNIVERSITY_OF_WASHINGTON = "UW";
@@ -33,7 +34,6 @@ public class Constants {
     public static final String GEORGIA_TECH = "GeorgiaTech";
 
     /** Ellucian */
-//    public static final String ELLUCIAN_SS_COURSE_DATA_FORM_DATA_DEFAULT = "sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_crse=&sel_title=&sel_schd=%25&sel_from_cred=&sel_to_cred=&sel_levl=%25&sel_instr=%25&sel_attr=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&term_in=";
     public static final String ELLUCIAN_SS_COURSE_DATA_FORM_DATA_DEFAULT = "sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_title=&sel_schd=%25&sel_from_cred=&sel_to_cred=&sel_levl=%25&sel_instr=%25&sel_attr=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&term_in=";
     public static final String ELLUCIAN_REGISTRATION_TERMS_RELATIVE_PATH = "/bwckschd.p_disp_dyn_sched";
     public static final String ELLUCIAN_REGISTRATION_COURSES_RELATIVE_PATH = "/bwckschd.p_get_crse_unsec";
@@ -49,42 +49,7 @@ public class Constants {
     public static final String ELLUCIAN_SS_DATA_CLASS_TABLE_DATA_COLUMN_TAG = "td";
     public static final String ELLUCIAN_SS_DATA_FORM_SUBJECT = "&sel_subj=";
     public static final String ELLUCIAN_SS_DATA_FORM_COURSE = "&sel_crse=";
-    public static final String ELLUCIAN_SS_DATA_TERM_KEY = "term_in";
-    public static final String ELLUCIAN_SS_DATA_SUBJECT_KEY = "sel_subj";
-    public static final String ELLUCIAN_SS_DATA_COURSE_KEY = "sel_crse";
-
-
     public static final String ELLUCIAN_SS_DATA_DUMMY_NODE = "dummy";
-
-    public static final Map<String, String> ELLUCIAN_SS_DATA_COURSES_MAP_DEFAULT = ImmutableMap.<String, String>builder()
-//    term_in: 202002
-//            .put("sel_subj", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_day", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_schd", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_insm", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_camp", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_levl", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_sess", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_instr", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_ptrm", ELLUCIAN_SS_DATA_DUMMY_NODE)
-            .put("sel_attr", ELLUCIAN_SS_DATA_DUMMY_NODE)
-//            .put( "sel_subj: AE
-//            .put( "sel_crse", "")
-            .put( "sel_title", "")
-//            .put( "sel_schd", "%")
-            .put( "sel_from_cred", "")
-            .put("sel_to_cred", "")
-//            .put("sel_camp", "%")
-//            .put( "sel_ptrm", "%")
-//            .put( "sel_instr", "%")
-//            .put("sel_attr", "%")
-            .put("begin_hh", "0")
-            .put( "begin_mi", "0")
-            .put( "begin_ap", "a")
-            .put("end_hh", "0")
-            .put("end_mi", "0")
-            .put("end_ap", "a")
-            .build();
 
     // Self-Service Data Pages
     public static final String ELLUCIAN_SS_DATA_GEORGIA_STATE_UNIVERSITY = "https://www.gosolar.gsu.edu/bprod";
@@ -98,7 +63,6 @@ public class Constants {
     public static final String ELLUCIAN_SS_DATA_HARPER_COLLEGE = "https://student-self-service.harpercollege.edu/prod";
     public static final String ELLUCIAN_SS_DATA_BROWN_UNIVERSITY = "https://selfservice.brown.edu/ss";
     public static final String ELLUCIAN_SS_DATA_GEORGIA_TECH = "https://oscar.gatech.edu/pls/bprod";
-
 
     public static final Map<String, String> ELLUCIAN_UNIVERSITIES_SS_DATA_PAGES = ImmutableMap.<String, String>builder()
             .put(GEORGIA_STATE_UNIVERSITY, ELLUCIAN_SS_DATA_GEORGIA_STATE_UNIVERSITY)

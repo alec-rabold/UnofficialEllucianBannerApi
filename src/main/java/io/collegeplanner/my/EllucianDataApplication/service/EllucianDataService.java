@@ -14,7 +14,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -25,7 +24,6 @@ import java.util.*;
 import static io.collegeplanner.my.EllucianDataApplication.util.Constants.*;
 
 @Log4j2
-@Service
 public class EllucianDataService {
 
     public static Set<Term> getTerms(final TermsRequestModel request) {
@@ -68,14 +66,7 @@ public class EllucianDataService {
 
     public static Set<Course> getCourses(final CoursesRequestModel request) {
         final Set<Course> res = new LinkedHashSet<>();
-        final Map<String, String> data = ImmutableMap.<String, String>builder()
-                .putAll(ELLUCIAN_SS_DATA_COURSES_MAP_DEFAULT)
-                .put(ELLUCIAN_SS_DATA_TERM_KEY, request.getTerm())
-                .put(ELLUCIAN_SS_DATA_SUBJECT_KEY, request.getSubject())
-                .put(ELLUCIAN_SS_DATA_COURSE_KEY, StringUtils.EMPTY)
-                .build();
         final Document dom = getDocumentModel(request.getCollege(), ELLUCIAN_REGISTRATION_COURSES_RELATIVE_PATH, ELLUCIAN_REGISTRATION_SUBJECTS_RELATIVE_PATH, request.getTerm(), request.getSubject(), StringUtils.EMPTY);
-
         final Elements elems = dom.getElementsByAttributeValue(ELLUCIAN_SS_DATA_CLASS_KEY, ELLUCIAN_SS_DATA_CLASS_VALUE_COURSES);
         for (final Element elem : elems) {
             final String courseInfo = elem.text();
@@ -86,22 +77,13 @@ public class EllucianDataService {
 
     public static Set<Section> getSections(final SectionsRequestModel request) {
         final Set<Section> res = new LinkedHashSet<>();
-        final Map<String, String> data = ImmutableMap.<String, String>builder()
-                .putAll(ELLUCIAN_SS_DATA_COURSES_MAP_DEFAULT)
-                .put(ELLUCIAN_SS_DATA_TERM_KEY, request.getTerm())
-                .put(ELLUCIAN_SS_DATA_SUBJECT_KEY, request.getSubject())
-                .put(ELLUCIAN_SS_DATA_COURSE_KEY, request.getNumber())
-                .build();
         final Document dom = getDocumentModel(request.getCollege(), ELLUCIAN_REGISTRATION_COURSES_RELATIVE_PATH, ELLUCIAN_REGISTRATION_SUBJECTS_RELATIVE_PATH, request.getTerm(), request.getSubject(), request.getNumber());
-
-        //Get Courses:
         final List<Course> courses = new LinkedList<>();
         final Elements elemsCourses = dom.getElementsByAttributeValue(ELLUCIAN_SS_DATA_CLASS_KEY, ELLUCIAN_SS_DATA_CLASS_VALUE_COURSES);
         for (final Element elem : elemsCourses) {
             final String courseInfo = elem.text();
             courses.add(parseCourseFromCourseInfo(courseInfo));
         }
-
         // Get SectionMeetings:
         final Elements elemsMeetings = dom.getElementsByAttributeValue(ELLUCIAN_SS_DATA_CLASS_TABLE_KEY, ELLUCIAN_SS_DATA_CLASS_TABLE_VALUE_SECTIONS);
         // For each section (table)
@@ -131,7 +113,6 @@ public class EllucianDataService {
             final String dataUrl = basePage + relativePath;
             return Jsoup.connect(dataUrl)
                     .referrer(basePage + referrerPath)
-//                    .referrer(basePage)
                     .data(entries)
                     .post();
         } catch (final IOException e) {
@@ -140,6 +121,7 @@ public class EllucianDataService {
         return null;
     }
 
+    // TODO: generify logic / encapsulate with library
     private static Document getDocumentModel(final String collegeName, final String relativePath, final String referrerPath, final String term, final String subject, final String courseNumber) {
         try {
             final String basePage = ELLUCIAN_UNIVERSITIES_SS_DATA_PAGES.get(collegeName);
@@ -222,21 +204,5 @@ public class EllucianDataService {
                 iterator.next().text(),
                 iterator.next().text()
         );
-    }
-
-    private static String formatSubjectParameters(final Set<String> subjects) {
-        final StringBuilder paramBuilder = new StringBuilder();
-        for(final String subj : subjects) {
-            paramBuilder.append(ELLUCIAN_SS_DATA_FORM_SUBJECT + subj);
-        }
-        return paramBuilder.toString();
-    }
-
-    private static String formatCourseParameters(final Set<String> subjects) {
-        final StringBuilder paramBuilder = new StringBuilder();
-        for(final String subj : subjects) {
-            paramBuilder.append(ELLUCIAN_SS_DATA_FORM_SUBJECT + subj);
-        }
-        return paramBuilder.toString();
     }
 }
