@@ -19,8 +19,6 @@ public class Course {
     private String courseNumber;
     @JsonProperty("course_id")
     private String courseId;
-    @JsonProperty("course_section")
-    private String courseSection;
 
     @Override
     public int hashCode() {
