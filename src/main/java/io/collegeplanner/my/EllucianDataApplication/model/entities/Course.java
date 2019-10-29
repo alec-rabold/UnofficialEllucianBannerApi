@@ -1,5 +1,6 @@
 package io.collegeplanner.my.EllucianDataApplication.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,8 @@ public class Course {
     private String courseNumber;
     @JsonProperty("course_id")
     private String courseId;
+    @JsonIgnore
+    private String courseSection;
 
     @Override
     public int hashCode() {
