@@ -36,7 +36,7 @@ Major resource components supported by the API are:
 - terms
 - subjects
 - courses
-- section
+- sections
 
 The following can be used alone:
 
@@ -63,7 +63,7 @@ The following resources must be used with parameters:
 | `/terms`      | `college`                |returns a list of all academic terms and respective term codes
 | `/subjects`   | `college`, `term`        |returns a list of all departments / subjects offered for a specific term
 | `/courses`    | `college`, `term`, `subject`   |returns a list of all courses within the specified department/subject
-| `/section`    | `college`, `term`, `subject`, `number`   |returns a list of all sections and meeting times for a specific course 
+| `/sections`    | `college`, `term`, `subject`, `number`   |returns a list of all sections and meeting times for a specific course 
 
 
 ### Example using URI parameters
